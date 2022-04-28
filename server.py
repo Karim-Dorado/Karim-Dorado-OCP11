@@ -20,6 +20,7 @@ app.secret_key = 'something_special'
 
 competitions = load_competitions()
 clubs = load_clubs()
+today = str(datetime.today())
 
 
 @app.route('/')
@@ -31,21 +32,21 @@ def index():
 def show_summary():
     try:
         club = [club for club in clubs if club['email'] == request.form['email']][0]
-        available_competitions = [comp for comp in competitions if comp['date'] >= str(datetime.now())]
     except IndexError:
         return render_template('index.html',
                                message="Invalid email adress !",
                                )
     return render_template('welcome.html',
                            club=club,
-                           competitions=available_competitions
+                           competitions=competitions,
+                           today=today
                            )
 
 
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
     found_club = [clb for clb in clubs if clb['name'] == club][0]
-    found_competition = [cpt for cpt in competitions if cpt['name'] == competition][0]
+    found_competition = [comp for comp in competitions if comp['name'] == competition][0]
     if found_club and found_competition:
         return render_template('booking.html',
                                club=found_club,
@@ -55,7 +56,8 @@ def book(competition, club):
         flash("Something went wrong-please try again")
         return render_template('welcome.html',
                                club=club,
-                               competitions=competitions
+                               competitions=competitions,
+                               today=today
                                )
 
 
@@ -68,7 +70,8 @@ def purchase_places():
     flash('Great-booking complete!')
     return render_template('welcome.html',
                            club=club,
-                           competitions=competitions
+                           competitions=competitions,
+                           today=today
                            )
 
 
