@@ -19,9 +19,9 @@ def test_success_booking_places(client):
     assert data.find("Great-booking complete!")
 
 
-def test_fail_booking_places(client):
-    club = "Simply Lift"
-    email = "john@simplylift.co"
+def test_not_enough_points(client):
+    club = "Iron Temple"
+    email = "admin@irontemple.com"
     competition = "Fall Classic"
     login = client.post('/showSummary',  data={"email": email, "name": club}, follow_redirects=True)
     assert login.status_code == 200
@@ -30,7 +30,7 @@ def test_fail_booking_places(client):
         data={
             'club':club,
             'competition':competition,
-            'places':14
+            'places':8
             }
     )
     assert response.status_code == 200
@@ -38,7 +38,7 @@ def test_fail_booking_places(client):
     assert data.find("Not enough points to require this number of places!")
 
 
-def test_fail_negative_booking_places(client):
+def test_purchase_negative_places(client):
     club = "Simply Lift"
     email = "john@simplylift.co"
     competition = "Fall Classic"
