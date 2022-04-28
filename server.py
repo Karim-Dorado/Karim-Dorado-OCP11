@@ -1,4 +1,5 @@
 import json
+from datetime import date, datetime
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
@@ -30,13 +31,14 @@ def index():
 def show_summary():
     try:
         club = [club for club in clubs if club['email'] == request.form['email']][0]
+        available_competitions = [comp for comp in competitions if comp['date'] >= str(datetime.now())]
     except IndexError:
         return render_template('index.html',
                                message="Invalid email adress !",
                                )
     return render_template('welcome.html',
                            club=club,
-                           competitions=competitions
+                           competitions=available_competitions
                            )
 
 
