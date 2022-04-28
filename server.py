@@ -70,6 +70,8 @@ def purchase_places():
         flash("Not enough points to require this number of places!")
     elif places_required <= 0 :
         flash("Please, enter a positive number!")
+    elif places_required > 12:
+        flash("You can't require more than 12 places")
     else:
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-places_required
         flash('Great-booking complete!')
