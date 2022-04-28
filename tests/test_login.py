@@ -1,19 +1,10 @@
-import pytest
-import server
 
-
-@pytest.fixture
-def client():
-    server.app.config['TESTING'] = True
-    clients = server.app.test_client()
-    return clients
-
-    
 def test_valid_email(client):
     email = "john@simplylift.co"
-    response = client.post('/showSummary', data={"email": email})
+    name = "Simply Lift"
+    response = client.post('/showSummary', data={"email": email, "name": name})
     assert response.status_code == 200
-    assert ("Welcome, " + email) in response.data.decode()
+    assert ("Welcome, " + name) in response.data.decode()
 
 
 def test_invalid_email(client):
