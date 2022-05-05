@@ -1,5 +1,5 @@
 import json
-from datetime import date, datetime
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
@@ -84,7 +84,9 @@ def purchase_places():
 
 
 # TODO: Add route for points display
-
+@app.route('/board')
+def display_board():
+    return render_template('board.html', clubs=clubs)
 
 @app.route('/logout')
 def logout():
