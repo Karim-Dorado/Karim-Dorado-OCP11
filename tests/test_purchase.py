@@ -2,10 +2,7 @@
 
 def test_success_booking_places(client):
     club = "Simply Lift"
-    email = "john@simplylift.co"
     competition = "Fall Classic"
-    login = client.post('/showSummary',  data={"email": email, "name": club}, follow_redirects=True)
-    assert login.status_code == 200
     response = client.post(
         '/purchasePlaces',
         data={
@@ -21,10 +18,7 @@ def test_success_booking_places(client):
 
 def test_not_enough_points(client):
     club = "Iron Temple"
-    email = "admin@irontemple.com"
     competition = "Fall Classic"
-    login = client.post('/showSummary',  data={"email": email, "name": club}, follow_redirects=True)
-    assert login.status_code == 200
     response = client.post(
         '/purchasePlaces',
         data={
@@ -40,10 +34,7 @@ def test_not_enough_points(client):
 
 def test_purchase_negative_places(client):
     club = "Simply Lift"
-    email = "john@simplylift.co"
     competition = "Fall Classic"
-    login = client.post('/showSummary',  data={"email": email, "name": club}, follow_redirects=True)
-    assert login.status_code == 200
     response = client.post(
         '/purchasePlaces',
         data={
@@ -58,10 +49,7 @@ def test_purchase_negative_places(client):
 
 def test_purchase_more_than_12_places(client):
     club = "Simply Lift"
-    email = "john@simplylift.co"
     competition = "Fall Classic"
-    login = client.post('/showSummary',  data={"email": email, "name": club}, follow_redirects=True)
-    assert login.status_code == 200
     response = client.post(
         '/purchasePlaces',
         data={
