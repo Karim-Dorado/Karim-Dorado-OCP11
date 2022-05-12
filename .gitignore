@@ -2,9 +2,9 @@ bin
 include
 lib
 .Python
-tests/
 .envrc
 __pycache__
 env/
 env/Scripts
 env/pyvenv.cfg
+.vscode

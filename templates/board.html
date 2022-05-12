@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Board | GUDLFT Registration{% endblock %}
+{% block content %}
+<a href="{{url_for('login')}}">Login</a>
+
+{% with messages = get_flashed_messages()%}
+{% if messages %}
+    <ul>
+   {% for message in messages %}
+        <li>{{message}}</li>
+    {% endfor %}
+   </ul>
+{% endif%}
+
+<h3>Clubs Registered :</h3>
+<ul class="clubs">
+    {% for club in clubs%}
+    <li class="club">{{club['name']}} Points: {{club['points']}}</li>
+    {% endfor %}
+</ul>
+{%endwith%}
+{% endblock content %}
