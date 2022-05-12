@@ -25,7 +25,7 @@ today = str(datetime.today())
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('board.html', clubs=clubs)
 
 
 @app.route('/showSummary', methods=['POST'])
@@ -33,7 +33,7 @@ def show_summary():
     try:
         club = [club for club in clubs if club['email'] == request.form['email']][0]
     except IndexError:
-        return render_template('index.html',
+        return render_template('login.html',
                                message="Invalid email adress !",
                                )
     return render_template('welcome.html',
@@ -84,9 +84,10 @@ def purchase_places():
 
 
 # TODO: Add route for points display
-@app.route('/board')
-def display_board():
-    return render_template('board.html', clubs=clubs)
+@app.route('/login')
+def login():
+    return render_template('login.html', clubs=clubs)
+
 
 @app.route('/logout')
 def logout():
